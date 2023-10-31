@@ -11,32 +11,44 @@ function createPlayer(character) {
     return { XorO };
 }
 
-function createTiles(){
-    for(let i = 0; i < 9; i++){
-        let div = document.createElement('div');
-        div.classList.add('cell');
-        div.addEventListener('click', () => {
-            writeTile(div, 'x');
-        });
-        theBoard.boardDom.appendChild(div);
-    }
-}
 
-function writeTile(tile,character){
-    if(tile.innerHtml !='X') {
-        tile.setHTML('X');
-        console.log('clicked');
-    }
 
-}
 
-function winWatcher(){ // tells who wins, or if there was a draw..
 
-}
+
 
 const game = (function createGame(){
     let board = theBoard;
+    let stateCount = 0;
     createTiles();
+
+    function createTiles(){
+        for(let i = 0; i < 9; i++){
+            let div = document.createElement('div');
+            div.classList.add('cell');
+            div.innerHTML = '';
+            div.addEventListener('click', () => {
+                writeTile(div, div.innerHTML);
+            });
+            theBoard.boardDom.appendChild(div);
+        }
+    }
+
+
+    function writeTile(tile,innerHTML){
+        if(innerHTML == '') {
+            console.log(innerHTML);
+            if(stateCount%2 == 0){
+                tile.setHTML('X');
+            } else {
+                tile.setHTML('O');
+            }
+            stateCount++;
+            console.log('clicked');
+        }
+    }   
+
+
     return {board};
 })();
 
