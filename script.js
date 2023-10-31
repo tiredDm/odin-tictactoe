@@ -1,8 +1,9 @@
 
 /* Factory Functions.... */
 const theBoard = (function createBoard () {
+    const boardDom = document.querySelector('.board');
     const board = ['','','','','','','','',''];
-    return { discordName };
+    return { board, boardDom };
 })();
 
 function createPlayer(character) {
@@ -13,17 +14,20 @@ function createPlayer(character) {
 function createTiles(){
     for(let i = 0; i < 9; i++){
         let div = document.createElement('div');
+        div.classList.add('cell');
         div.addEventListener('click', () => {
             writeTile(div, 'x');
         });
-        boardDom.appendChild(div);
+        theBoard.boardDom.appendChild(div);
     }
 }
 
 function writeTile(tile,character){
-    if(tile.innerHtml.length != 0) {
-        tile.innerHtml == character;
+    if(tile.innerHtml !='X') {
+        tile.setHTML('X');
+        console.log('clicked');
     }
+
 }
 
 function winWatcher(){ // tells who wins, or if there was a draw..
@@ -31,7 +35,8 @@ function winWatcher(){ // tells who wins, or if there was a draw..
 }
 
 const game = (function createGame(){
-    let board = theBoardoard;
+    let board = theBoard;
+    createTiles();
     return {board};
 })();
 

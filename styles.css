@@ -1,0 +1,13 @@
+.cell{
+    width: 10vw;
+    height: 10vw;
+    background-color: grey;
+}
+
+.board{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: fit-content;
+}
