@@ -21,8 +21,13 @@ const game = (function createGame(){
     let board = theBoard;
     let stateCount = 0;
     let gameOver = false;
-
+    const result = document.querySelector('.result');
+    const restartButton = document.querySelector('.restart');
     createTiles();
+
+    restartButton.addEventListener('click', () => {
+        reStart();
+    });
 
     function createTiles(){
         for(let i = 0; i < 9; i++){
@@ -65,29 +70,45 @@ const game = (function createGame(){
             //HORIZONTALS
             if(tiles[i*3].innerHTML ==tiles[(i*3)+1].innerHTML && tiles[i*3].innerHTML == tiles[(i*3)+2].innerHTML && tiles[(i*3)].innerHTML != ''){
                 console.log(tiles[i*3].innerHTML + ' wins');
+                result.innerHTML = tiles[i*3].innerHTML + ' wins';
                 gameOver = true;
             //VERTICALS
             } else if (tiles[i].innerHTML ==tiles[i+3].innerHTML && tiles[i].innerHTML == tiles[i+6].innerHTML && tiles[i].innerHTML != ''){
                 console.log(tiles[i].innerHTML + ' wins');
+                result.innerHTML = tiles[i].innerHTML + ' wins';
                 gameOver = true;
             }
         }
         //DIAGONALS: 
         if(tiles[0].innerHTML ==tiles[4].innerHTML && tiles[0].innerHTML == tiles[8].innerHTML && tiles[0].innerHTML != ''){
             console.log(tiles[0].innerHTML + ' wins');
+            result.innerHTML = tiles[0].innerHTML + ' wins';
             gameOver = true;
         //VERTICALS
         } else if (tiles[2].innerHTML ==tiles[4].innerHTML && tiles[2].innerHTML == tiles[6].innerHTML && tiles[2].innerHTML != ''){
             console.log(tiles[2].innerHTML + ' wins');
+            result.innerHTML = tiles[2].innerHTML + ' wins';
             gameOver = true;
         }
 
         if(stateCount == 9){
             console.log('It is a Tie');
+            result.innerHTML = 'It is a Tie';
             gameOver = true;
         }
     }
 
+    function destroyTiles(){
+        game.board.boardDom.innerHTML = '';
+    }
+
+    function reStart(){
+        gameOver = false;
+        stateCount = 0;
+        destroyTiles();
+        createTiles();
+        result.innerHTML = '';
+    }
 
     return {board};
 })();
